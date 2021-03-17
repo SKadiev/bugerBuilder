@@ -23,13 +23,14 @@ class BurgerBuilder extends Component {
         price : 4,
         purchasable: false,
         purchasing: false,
-        loading: false
+        loading: false,
+        error:false
     }
 
     componentDidMount () {
         axios.get('/ingredients.json')
         .then(response => this.setState({ingredients: response.data}))
-        .catch(error => console.log(error))
+        .catch(error => this.setState({error: true}))
     }
 
     updatePurchasable (ingredients) {
@@ -124,7 +125,7 @@ class BurgerBuilder extends Component {
             disabledInfo[key] = disabledInfo[key] <= 0;
         }
 
-        let burger = <Spinner />
+        let burger = this.state.error ? <p style={{textAlign: 'center'}}>Ingredients cant be loaded</p> : <Spinner />;
 
         let orderSummary = null;
 
