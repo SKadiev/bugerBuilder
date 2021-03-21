@@ -99,8 +99,7 @@ class BurgerBuilder extends Component {
     //         customer: {
     //             name : 'Horhe Sampaoli',
     //             address: {
-    //                 street: 'street1',
-    //                 zipCode: '41351',
+    //                 street: 'street1',S
     //                 contry: 'Germany'
     //             },
     //             email:'test@test.com'
@@ -113,7 +112,19 @@ class BurgerBuilder extends Component {
     //         .then(response => console.log(response))
     //         .catch(error => console.log(error))
     //         .finally(() => this.setState({loading: false, purchasing: false}))
-        this.props.history.push('/checkout');
+
+    const queryParams = [];
+
+    for (let i in this.state.ingredients) {
+        queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]))
+
+    }
+
+    const queryString = queryParams.join('&');
+        this.props.history.push({
+            pathname: '/checkout',
+            search: '?' + queryString
+        });
     }
 
     render () {
