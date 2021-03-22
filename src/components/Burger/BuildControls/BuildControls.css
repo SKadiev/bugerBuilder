@@ -3,12 +3,11 @@
   background-color: #cf8f2e;
   display: flex;
   flex-flow: column;
+  flex-align: end;
   align-items: center;
   box-shadow: 0 2px 1px #ccc;
   padding: 10px 0;
   justify-content: last baseline;
-
-  
 }
 
 .OrderButton {
