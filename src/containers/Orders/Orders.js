@@ -46,7 +46,7 @@ class Orders extends Component {
                         key={order.id} 
                         uniqueId={order.id}
                         totalPrice={order.totalPrice}
-                        name={order.customer.name}
+                        name={order.orderData.name}
                         ingerdients={order.ingredients}/>
                 );
             });

@@ -10,7 +10,6 @@ const Order = (props) =>  {
         return <li key={`${ingredient[0]}_${ingredient[1]}${props.uniqueId}`}>{ingredient[0]}({ingredient[1]})</li>
     })
 
-    
 
     return (
         <div className={classes.Order}>

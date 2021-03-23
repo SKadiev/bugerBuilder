@@ -37,7 +37,6 @@ class Checkout extends Component {
     }
 
     render() {
-        console.log(this.props.match.path)
         return (
             <div>
                 <CheckoutSummary 
