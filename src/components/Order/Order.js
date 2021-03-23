@@ -7,7 +7,7 @@ const Order = (props) =>  {
     let ingredients = Object.entries(props.ingerdients);
 
     ingredients =  ingredients.map(ingredient => {
-        return <li key={`${ingredient[0]}_${ingredient[1]}`}>{ingredient[0]}({ingredient[1]})</li>
+        return <li key={`${ingredient[0]}_${ingredient[1]}${props.uniqueId}`}>{ingredient[0]}({ingredient[1]})</li>
     })
 
     
@@ -17,7 +17,7 @@ const Order = (props) =>  {
             <p><strong>Ordered by : </strong>{props.name}</p>
             <p>Ingredients: </p>
             <ul>{ingredients}</ul>
-            <p>Price: <strong>USD {+props.totalPrice}</strong>) </p>
+            <p>Price: <strong>USD {+props.totalPrice}</strong>$ </p>
         </div>
     )
 }
