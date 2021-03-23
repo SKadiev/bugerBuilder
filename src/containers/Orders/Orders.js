@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Order from '../../components/Order/Order';
 import axios from '../../axios-orders';
 import Spinner from '../../components/UI/Spinner/Spinner';
+import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 
 class Orders extends Component {
 
@@ -15,7 +16,6 @@ class Orders extends Component {
         axios.get('orders.json').then(res => {
         
            const ordersList = [];
-           console.log(res.data)
 
            for (const key in res.data) {
                ordersList.push({
@@ -24,7 +24,6 @@ class Orders extends Component {
 
                })
            }
-           console.log(ordersList)
 
             if (ordersList.length) 
                 this.setState({orders: ordersList, loading: false});
@@ -32,6 +31,7 @@ class Orders extends Component {
         })
         .catch((err) => {
             this.setState({loading:false});
+
         })
         
     }
@@ -41,7 +41,6 @@ class Orders extends Component {
 
         if (!this.state.loading) {
             orders = this.state.orders.map(order => {
-                console.log(order)
                 return ( 
                     <Order 
                         key={order.id} 
@@ -58,4 +57,4 @@ class Orders extends Component {
     }
 }
 
-export default Orders;
+export default withErrorHandler(Orders,axios);
