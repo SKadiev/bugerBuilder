@@ -16,7 +16,7 @@ const Order = (props) =>  {
             <p><strong>Ordered by : </strong>{props.name}</p>
             <p>Ingredients: </p>
             <ul>{ingredients}</ul>
-            <p>Price: <strong>USD {+props.totalPrice}</strong>$ </p>
+            <p>Price: <strong>USD {+props.totalPrice.toFixed(2)}</strong>$ </p>
         </div>
     )
 }

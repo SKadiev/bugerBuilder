@@ -29,3 +29,8 @@
   background-color: #fda49a;
   border: 1px solid salmon;
 }
+
+.ValidationError {
+  color: red;
+  margin: 5px 0;
+}
