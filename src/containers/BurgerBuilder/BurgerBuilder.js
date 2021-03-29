@@ -11,17 +11,10 @@ import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import axios from '../../axios-orders';
 import * as actionTypes from '../../store/actions';
 
-const INGREDIENT_PRICES = {
-    salad : 0.5, 
-    bacon: 1.7,
-    cheese: 0.4, 
-    meat: 1.3
-}
 
 class BurgerBuilder extends Component {
     
     state = {
-        price : 4,
         purchasable: false,
         purchasing: false,
         loading: false,
@@ -46,41 +39,7 @@ class BurgerBuilder extends Component {
         this.setState({purchasable: sum > 0})
     }
 
-    addIngredientHandler = (type) => {
-        const oldTypeCount = this.state.ingredients[type];
-        const newTypeCount = oldTypeCount + 1 ;
-        const updatedIngredients = {
-            ...this.state.ingredients
-        };
-
-        updatedIngredients[type] = newTypeCount;
-       
-        const priceAddition = INGREDIENT_PRICES[type];
-        const oldPrice = this.state.price;
-        const newPrice = oldPrice + priceAddition;
-        
-        this.setState({ingredients: updatedIngredients, price: newPrice});
-
-        this.updatePurchasable(updatedIngredients);
-    }
-
-    removedInregedientHandler = (type) => {
-        const oldTypeCount = this.state.ingredients[type];
-        if (oldTypeCount <= 0 ) return;
-        const newTypeCount =  oldTypeCount - 1 ;
-        const updatedIngredients = {
-            ...this.state.ingredients
-        };
-
-        updatedIngredients[type] = newTypeCount;
-       
-        const priceReduction = INGREDIENT_PRICES[type];
-        const oldPrice = this.state.price;
-        const newPrice = oldPrice - priceReduction;
-        this.setState({ingredients: updatedIngredients, price: newPrice});
-        this.updatePurchasable(updatedIngredients);
-
-    }
+ 
     
     purchaseHandler =  () => {
         this.setState({purchasing: true});
@@ -98,7 +57,7 @@ class BurgerBuilder extends Component {
 
         }
         
-        queryParams.push('price=' + this.state.price)
+        queryParams.push('price=' + this.props.price)
 
         const queryString = queryParams.join('&');
 
@@ -128,7 +87,7 @@ class BurgerBuilder extends Component {
                 <BuildControls 
                     ingredientAdded={this.props.onIngredientAdded} 
                     disabled={disabledInfo}
-                    price={this.state.price} 
+                    price={this.props.price} 
                     ingredientRemoved={this.removedInregedientHandler}
                     purchasable={!this.state.purchasable}
                     ordered={this.purchaseHandler} />
@@ -139,7 +98,7 @@ class BurgerBuilder extends Component {
                 ingredients={this.props.ings}
                 purchaseCanceled={this.purchaseCancelHandler}
                 purchaseContinue={this.purchaseContinueHandler}
-                totalPrice={this.state.price}/>;
+                totalPrice={this.props.price}/>;
         }
 
 
@@ -162,7 +121,8 @@ class BurgerBuilder extends Component {
 
 const mapStateToProps = state => {
     return {
-        ings: state.ingredients
+        ings: state.ingredients,
+        price: state.totalPrice
     }
 };
 
