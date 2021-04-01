@@ -10,7 +10,7 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import axios from '../../axios-orders';
 import * as actionTypes from '../../store/actions/actionsTypes';
-import {addIngredient, removeIngredient} from '../../store/actions/index';
+import {addIngredient, removeIngredient, initIngeredients} from '../../store/actions/index';
 
 
 class BurgerBuilder extends Component {
@@ -22,9 +22,7 @@ class BurgerBuilder extends Component {
     }
 
     componentDidMount () {
-        axios.get('/ingredients.json')
-        .then(response => this.setState({ingredients: response.data}))
-        .catch(error => this.setState({error: true}))
+        this.props.onInitIngredients()
     }
 
     updatePurchasable (ingredients) {
@@ -121,6 +119,9 @@ const mapDispatchToProps = dispatch => {
 
         ingredientRemoved: (ingName) => {    
             dispatch(removeIngredient(ingName))
+        },
+        onInitIngredients : () => {
+            dispatch(initIngeredients());
         }
     };
 

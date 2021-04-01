@@ -1,5 +1,5 @@
 export {
-    addIngredient, removeIngredient
+    addIngredient, removeIngredient, initIngeredients
 } from './bugerBuilder';
 
 export {
