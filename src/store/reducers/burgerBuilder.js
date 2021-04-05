@@ -15,11 +15,12 @@ const initalState = {
         cheese: 0,
         meat: 0
     },
-    totalPrice: 4
+    totalPrice: 4,
+    error: false
 };
 
 const reducer = (state = initalState, action) => {
-
+    console.log(state)
     switch (action.type) {
         case actionTypes.ADD_INGREDIENT :
             return {
@@ -45,6 +46,13 @@ const reducer = (state = initalState, action) => {
         return {
             ...state,
             ingredients: action.ingredients
+            
+        } 
+
+        case actionTypes.FETCH_INGREDIENT_FAILED : 
+        return {
+            ...state,
+            error: true
             
         } 
         default:

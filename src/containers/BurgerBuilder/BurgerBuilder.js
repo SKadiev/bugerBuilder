@@ -17,12 +17,12 @@ class BurgerBuilder extends Component {
     
     state = {
         purchasing: false,
-        loading: false,
-        error:false
+        loading: false
+
     }
 
     componentDidMount () {
-        this.props.onInitIngredients()
+        this.props.onInitIngredients();
     }
 
     updatePurchasable (ingredients) {
@@ -60,8 +60,8 @@ class BurgerBuilder extends Component {
         for (let key in disabledInfo) {
             disabledInfo[key] = disabledInfo[key] <= 0;
         }
-
-        let burger = this.state.error ? <p style={{textAlign: 'center'}}>Ingredients cant be loaded</p> : <Spinner />;
+        console.log(this.props.error)
+        let burger = this.props.error ? <p style={{textAlign: 'center'}}>Ingredients cant be loaded</p> : <Spinner />;
 
         let orderSummary = null;
 
@@ -107,7 +107,8 @@ class BurgerBuilder extends Component {
 const mapStateToProps = state => {
     return {
         ings: state.ingredients,
-        price: state.totalPrice
+        price: state.totalPrice,
+        error: state.error
     }
 };
 
