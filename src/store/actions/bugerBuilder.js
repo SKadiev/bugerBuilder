@@ -32,10 +32,11 @@ export const fetchIngredientFailed = ingredients => {
 export const initIngeredients = () => {
     return dispatch => {
 
-        axios.get('/ingredents.json')
+        axios.get('/ingredients.json')
         .then(response => {
             if (response.data) {
                 dispatch(setIngredients(response.data))
+
             } else {
                 dispatch(fetchIngredientFailed());
             }

@@ -9,18 +9,12 @@ const INGREDIENT_PRICES = {
 };
 
 const initalState = {
-    ingredients: {
-        salad: 0, 
-        bacon: 0,
-        cheese: 0,
-        meat: 0
-    },
+    ingredients: null,
     totalPrice: 4,
     error: false
 };
 
 const reducer = (state = initalState, action) => {
-    console.log(state)
     switch (action.type) {
         case actionTypes.ADD_INGREDIENT :
             return {

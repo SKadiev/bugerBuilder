@@ -17,7 +17,7 @@ class BurgerBuilder extends Component {
     
     state = {
         purchasing: false,
-        loading: false
+        loading: false,
 
     }
 
@@ -60,7 +60,6 @@ class BurgerBuilder extends Component {
         for (let key in disabledInfo) {
             disabledInfo[key] = disabledInfo[key] <= 0;
         }
-        console.log(this.props.error)
         let burger = this.props.error ? <p style={{textAlign: 'center'}}>Ingredients cant be loaded</p> : <Spinner />;
 
         let orderSummary = null;
@@ -92,6 +91,7 @@ class BurgerBuilder extends Component {
             orderSummary = <Spinner />;
         }
 
+        console.log(this.props)
         return (
             
             <Aux>
