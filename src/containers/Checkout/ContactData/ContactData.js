@@ -6,6 +6,8 @@ import axios from "../../../axios-orders";
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Input/Input';
 import {connect} from 'react-redux';
+import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
+import * as actions from '../../../store/actions/index';
 
 class ContactData extends Component {
 
@@ -101,7 +103,6 @@ class ContactData extends Component {
             }
             
         },
-        loading: false,
         formIsValid: false
         
     }
@@ -154,7 +155,6 @@ class ContactData extends Component {
 
     orderHandler = (event) => {
         event.preventDefault();
-        this.setState({loading: true});
         
         const formData = {};
         
@@ -169,14 +169,9 @@ class ContactData extends Component {
             orderData: formData
 
         };
+
+        this.props.onOrderBurger(order);
         
-        axios.post('/orders.json', order)
-            .then(response => console.log(response))
-            .catch(error => console.log(error))
-            .finally(() => {
-                this.setState({loading: false, purchasing: false});
-                this.props.history.push('/');
-            })
 
     }
     
@@ -218,7 +213,7 @@ class ContactData extends Component {
             </div>
         );
 
-        if (this.state.loading) {
+        if (this.props.loading) {
             form = <Spinner />;
         }
         return form;
@@ -228,8 +223,16 @@ class ContactData extends Component {
 const mapStateToProps = state => {
     return {
         ings: state.ingredients,
-        price: state.totalPrice
+        price: state.totalPrice,
+        loading: state.loading
     }
 }
 
-export default connect(mapStateToProps)(ContactData);
+const mapDispatchToProps = dispatch => {
+    return {
+        onOrderBurger: (orderData) => dispatch(actions.purchaseBurger(orderData))
+    }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(ContactData, axios));
