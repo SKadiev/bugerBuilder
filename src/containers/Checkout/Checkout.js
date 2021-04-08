@@ -50,12 +50,5 @@ const mapStateToProps = state => {
     }
 };
 
-const mapDispatchToProps = dispatch => {
-    return {
-        onInitPurchase: () => {
-            dispatch(actionsTypes.purchaseInit())
-        }
-    }
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Checkout);
+export default connect(mapStateToProps)(Checkout);
