@@ -1,4 +1,4 @@
-import * as actionsTypes from './actionsTypes';
+import * as actionsTypes from '../actions/actionsTypes';
 import axios from './../../axios-orders';
 
 export const purchaseBurgerSuccess = (id, orderData) => {
@@ -41,4 +41,49 @@ export const purchaseBurger = (orderData) => {
         })
         
    }
+}
+
+export const fetchOrdersSuccess = orders => {
+    return {
+        type: actionsTypes.FETCH_ORDERS_SUCCESS,
+        orders
+    }
+}
+
+
+export const fetchOrdersFail = error => {
+    return {
+        type: actionsTypes.FETCH_ORDERS_FAIL,
+        error
+    }
+}
+
+export const fetchOrdersStart = () => {
+    return {
+        type: actionsTypes.FETCH_ORDERS_START
+    }
+}
+
+export const fetchOrders = dispatch => {
+    return dispatch => {
+        axios.get('orders.json').then(res => {
+        
+            const ordersList = [];
+ 
+            for (const key in res.data) {
+                ordersList.push({
+                    id: key,
+                    ...res.data[key]
+ 
+                })
+            }
+            dispatch(fetchOrdersSuccess(ordersList));
+           
+             
+         })
+         .catch((err) => {
+            dispatch(fetchOrdersFail(err));
+         })
+    }
+
 }
