@@ -7,9 +7,7 @@ import * as actionsTypes from './../../store/actions/index';
 class Checkout extends Component {
     
 
-    componentWillMount() {
-        this.props.onInitPurchase();
-    }
+  
     
     checkoutCancel = () => {
         this.props.history.goBack();
